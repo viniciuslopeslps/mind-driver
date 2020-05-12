@@ -1,9 +1,6 @@
-const express = require("express");
-const app = express();
+const app = require("./config/express").app;
+const contentRouter = require("./routes/content-router");
 
-
-app.get("/", (req, res) => {
-  res.send("Hello")
-});
+app.use("/content", contentRouter);
 
 app.listen(3000);
