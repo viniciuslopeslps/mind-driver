@@ -4,11 +4,13 @@ import { ContentRepository } from '../models/repositories/content-repository'
 
 
 class ContentService {
-  createContext(request: ContentRequest) {
+  async createContext(request: ContentRequest) {
 
     const content = new Content(request)
     let repository = new ContentRepository();
-    repository.createContext(content);
+    const response = await repository.createContext(content);
+    console.log(`Create context response: ${JSON.stringify(response)}`)
+    return response;
   }
 }
 

@@ -1,6 +1,6 @@
 
 import { IsNotEmpty } from "class-validator";
-import { ContentType } from "../../model/entities/content-type";
+import { ContentType } from "../../models/entities/content-type";
 
 
 export class ContentRequest {
