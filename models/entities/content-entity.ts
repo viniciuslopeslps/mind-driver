@@ -1,6 +1,6 @@
 import { ContentType } from "./content-type";
 import moment = require('moment');
-import { ContentRequest }  from '../../controllers/request/content-request'
+import { ContentRequest } from '../../controllers/request/content-request'
 
 class Content {
   title: String;
@@ -11,7 +11,7 @@ class Content {
   updatedAt: String;
   path: String;
 
- 
+
 
   constructor(request: ContentRequest) {
     this.title = request.title;
@@ -19,7 +19,7 @@ class Content {
     this.description = request.description;
     this.imageUrl = request.imageUrl;
     this.path = request.path;
-    this.createdAt =   moment(new Date()).format('DD/MM/yyyy');
+    this.createdAt = moment(new Date()).format('DD/MM/yyyy');
   }
 }
 

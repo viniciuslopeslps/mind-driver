@@ -8,8 +8,16 @@ class ContentService {
 
     const content = new Content(request)
     let repository = new ContentRepository();
-    const response = await repository.createContext(content);
+    const response = await repository.createContent(content);
     console.log(`Create context response: ${JSON.stringify(response)}`)
+    return response;
+  }
+
+  async updateContext(request: ContentRequest) {
+    const content = new Content(request)
+    let repository = new ContentRepository();
+    const response = await repository.updateContent(content);
+    console.log(`Updated context response: ${JSON.stringify(response)}`)
     return response;
   }
 }

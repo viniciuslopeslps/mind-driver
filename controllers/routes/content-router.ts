@@ -24,4 +24,20 @@ router.post('/', async (req: Request, res: Response) => {
     res.status(400).json(errors);
   }
 });
+
+router.put('/', async (req: Request, res: Response) => {
+  let contextRequest = new ContentRequest(req.body)
+
+  const errors = await validate(contextRequest, { validationError: { target: false } });
+
+  if (errors && errors.length == 0) {
+    let service = new ContentService()
+    const response = await service.updateContext(contextRequest);
+
+    res.status(200).json(response);
+  } else {
+    console.log("validation failed. errors: ", errors);
+    res.status(400).json(errors);
+  }
+});
 module.exports = router;
