@@ -16,7 +16,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   if (errors && errors.length == 0) {
     let service = new ContentService()
-    const response = await service.createContext(contextRequest);
+    const response = await service.createContent(contextRequest);
 
     res.status(201).json(response);
   } else {
@@ -32,12 +32,21 @@ router.put('/', async (req: Request, res: Response) => {
 
   if (errors && errors.length == 0) {
     let service = new ContentService()
-    const response = await service.updateContext(contextRequest);
+    const response = await service.updateContent(contextRequest);
 
     res.status(200).json(response);
   } else {
     console.log("validation failed. errors: ", errors);
     res.status(400).json(errors);
   }
+});
+
+router.delete('/:title', async (req: Request, res: Response) => {
+  const title = req.params.title;
+
+  let service = new ContentService()
+  const response = await service.deleteContent(title);
+
+  res.status(200);
 });
 module.exports = router;

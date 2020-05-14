@@ -4,20 +4,27 @@ import { ContentRepository } from '../models/repositories/content-repository'
 
 
 class ContentService {
-  async createContext(request: ContentRequest) {
+  async createContent(request: ContentRequest) {
 
     const content = new Content(request)
     let repository = new ContentRepository();
     const response = await repository.createContent(content);
-    console.log(`Create context response: ${JSON.stringify(response)}`)
+    console.log(`Create content response: ${JSON.stringify(response)}`)
     return response;
   }
 
-  async updateContext(request: ContentRequest) {
+  async updateContent(request: ContentRequest) {
     const content = new Content(request)
     let repository = new ContentRepository();
     const response = await repository.updateContent(content);
-    console.log(`Updated context response: ${JSON.stringify(response)}`)
+    console.log(`Updated content response: ${JSON.stringify(response)}`)
+    return response;
+  }
+
+  async deleteContent(title: String) {
+    let repository = new ContentRepository();
+    const response = await repository.deleteContent(title);
+    console.log(`Deleted con response: ${JSON.stringify(response)}`)
     return response;
   }
 }

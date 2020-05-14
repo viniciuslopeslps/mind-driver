@@ -68,6 +68,27 @@ class ContentRepository {
     });
 
   }
+
+  deleteContent(title: String) {
+    var params = {
+      TableName: ContentRepository.TABLE_NAME,
+      Key: {
+        "title": title
+      }
+    };
+    let client = DynamoClient.getClient();
+    return new Promise((resolve, reject) => {
+      client.delete(params, (err, data) => {
+        if (err) {
+          console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+          reject(err);
+        } else {
+          console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+          resolve(data);
+        }
+      });
+    });
+  }
 }
 
 export { ContentRepository }
