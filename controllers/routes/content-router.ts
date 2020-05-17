@@ -5,10 +5,6 @@ import { validate } from "class-validator";
 import { Response, Request } from 'express';
 
 
-router.get('/', function (req: Request, res: Response) {
-  res.send('Birds home page');
-});
-
 router.post('/', async (req: Request, res: Response) => {
   let contextRequest = new ContentRequest(req.body)
 
@@ -49,4 +45,5 @@ router.delete('/:title', async (req: Request, res: Response) => {
 
   res.status(200);
 });
+
 module.exports = router;
