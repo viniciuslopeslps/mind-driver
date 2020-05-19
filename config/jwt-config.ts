@@ -1,4 +1,4 @@
-module.exports = {
+export = {
   jwtSecret: "secret",
   jwtSession: { session: false }
 };

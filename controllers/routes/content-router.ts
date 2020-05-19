@@ -3,9 +3,10 @@ import { ContentService } from '../../services/content-service'
 import { ContentRequest } from '../request/content-request'
 import { validate } from "class-validator";
 import { Response, Request } from 'express';
+import { Authentication } from '../../config/authentication';
 
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', Authentication.authenticate(), async (req: Request, res: Response) => {
   let contextRequest = new ContentRequest(req.body)
 
   const errors = await validate(contextRequest, { validationError: { target: false } });
@@ -21,7 +22,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-router.put('/', async (req: Request, res: Response) => {
+router.put('/', Authentication.authenticate(), async (req: Request, res: Response) => {
   let contextRequest = new ContentRequest(req.body)
 
   const errors = await validate(contextRequest, { validationError: { target: false } });
@@ -37,7 +38,7 @@ router.put('/', async (req: Request, res: Response) => {
   }
 });
 
-router.delete('/:title', async (req: Request, res: Response) => {
+router.delete('/:title', Authentication.authenticate(), async (req: Request, res: Response) => {
   const title = req.params.title;
 
   let service = new ContentService()

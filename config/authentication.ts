@@ -1,7 +1,6 @@
-var passport = require("passport");
-var passportJWT = require("passport-jwt");
-var users = require("./users");
-var cfg = require("./jwt-config");
+const passport = require("passport");
+const passportJWT = require("passport-jwt");
+import cfg = require("./jwt-config");
 import { UserService } from '../services/user-service';
 
 var ExtractJwt = passportJWT.ExtractJwt;
