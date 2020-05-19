@@ -6,7 +6,6 @@ import moment = require('moment');
 class ContentRepository {
   static TABLE_NAME: String = 'Content';
 
-
   createContent(context: Content) {
     const params = {
       TableName: ContentRepository.TABLE_NAME,
