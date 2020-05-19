@@ -2,6 +2,7 @@ var passport = require("passport");
 var passportJWT = require("passport-jwt");
 var users = require("./users");
 var cfg = require("./jwt-config");
+import { UserService } from '../services/user-service';
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = require('passport-jwt').Strategy;
@@ -12,18 +13,19 @@ let params = {
 
 
 class Authentication {
-  constructor(){
-      passport.use(new JwtStrategy(params, function(jwt_payload, done) {
-      const user = users.find(user => user.id===jwt_payload.id);
+  constructor() {
+    passport.use(new JwtStrategy(params, async function (jwt_payload, done) {
+      const userService = new UserService()
+      const user = await userService.findByEmail(jwt_payload.id);
       if (user) {
-        return done(null, {user: user});
+        return done(null, { user: user });
       } else {
-        return done(new Error("User not found"), null);
+        return done(new Error("USER_NOT_FOUND"), null);
       }
-  }));
+    }));
 
   }
- initialize() {
+  initialize() {
     return passport.initialize();
   }
 

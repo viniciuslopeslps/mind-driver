@@ -1,7 +1,6 @@
 const router = require('../../config/express').router;
 var jwt = require("jwt-simple");
 import { Authentication } from '../../config/authentication';
-const users = require('../../config/users');
 import { UserService } from '../../services/user-service';
 
 const cfg = require('../../config/jwt-config');
@@ -15,6 +14,7 @@ router.post("/token", async function(req, res) {
 
     const userService = new UserService();
     const user = await userService.authenticate(email, password);
+
 
     if (user) {
       const payload = {id: user.email};

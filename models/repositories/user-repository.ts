@@ -34,6 +34,33 @@ class UserRepository {
       });
     });
   }
+
+  findByEmail(email: String) {
+
+    const params = {
+      TableName: UserRepository.TABLE_NAME,
+      KeyConditionExpression: "#email = :email",
+      ExpressionAttributeNames: {
+        "#email": "email",
+      },
+      ExpressionAttributeValues: {
+        ":email": email,
+      }
+    };
+    let client = DynamoClient.getClient();
+
+    return new Promise<User>((resolve, reject) => {
+      client.query(params, function (err, data) {
+        if (err) {
+          console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+          reject(err);
+        } else {
+          console.log("Query succeeded. ");
+          resolve(data.Items[0]);
+        }
+      });
+    });
+  }
 }
 
 
