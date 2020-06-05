@@ -12,6 +12,6 @@ expressApp.use(bodyParser.urlencoded({
 expressApp.use(Auth.initialize());
 
 module.exports = {
-  router: express.Router(),
+  express: express,
   app: expressApp
 }

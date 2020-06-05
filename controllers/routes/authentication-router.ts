@@ -1,8 +1,7 @@
-const router = require('../../config/express').router;
+const router = require('../../config/express').express.Router();
 
 import { Authentication } from '../../config/authentication';
 import { UserService } from '../../services/user-service';
-
 
 
 router.post("/token", async function (req, res) {

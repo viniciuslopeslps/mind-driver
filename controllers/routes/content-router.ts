@@ -1,4 +1,4 @@
-const router = require('../../config/express').router;
+const router = require('../../config/express').express.Router();
 import { ContentService } from '../../services/content-service'
 import { ContentRequest } from '../request/content-request'
 import { validate } from "class-validator";

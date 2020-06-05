@@ -25,7 +25,6 @@ class ContentRepository {
         }
       });
     });
-
   }
 
   updateContent(context: Content) {
