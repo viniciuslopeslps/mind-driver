@@ -12,10 +12,16 @@ class UserService {
   }
 
   async authenticate(email: String, password: String) {
-    const authResponse = await this.userRepository.authenticate(email, password)
+    const user = await this.findByEmail(email);
+    if (user){
+      if(user.password !== password) {
+        //TODO:
+        return new Error("USER_NOT_FOUND");
+      }
 
-    if (authResponse) {
-      const payload = {id: authResponse.email};
+    }
+    if (user) {
+      const payload = {id: user.email};
       return jwt.encode(payload, cfg.jwtSecret);
     }
     return null;
