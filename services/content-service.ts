@@ -8,8 +8,8 @@ class ContentService {
   constructor(){
     this.repository = new ContentRepository();
   }
-  async createContent(request: ContentRequest) {
 
+  async createContent(request: ContentRequest) {
     const content = new Content(request)
     const response = await this.repository.createContent(content);
     console.log(`Create content response: ${JSON.stringify(response)}`)

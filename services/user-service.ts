@@ -1,5 +1,5 @@
 import { UserRepository } from '../models/repositories/user-repository'
-import { UserRequest } from '../controllers/request/user-request';
+import { UserRequest, UserUpdateRequest } from '../controllers/request/user-request';
 let jwt = require("jwt-simple");
 const cfg = require('../config/jwt-config');
 const { User } = require('../models/entities/user-entity');
@@ -29,6 +29,16 @@ class UserService {
     const user = new User(request);
     return await this.userRepository.createUser(user);
   }
+
+  async updateUser(request: UserUpdateRequest){
+    const user = await this.findByEmail(request.email);
+    if (user){
+      const newUser = new User(request);
+      return await this.userRepository.updateUser(user, newUser);
+    }
+    return null;
+  }
+
 }
 
 
