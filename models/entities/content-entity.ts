@@ -10,15 +10,17 @@ class Content {
   createdAt: String;
   updatedAt: String;
   path: String;
+  user: String;
 
 
 
-  constructor(request: ContentRequest) {
+  constructor(request: ContentRequest, user: String) {
     this.title = request.title;
     this.type = request.type;
     this.description = request.description;
     this.imageUrl = request.imageUrl;
     this.path = request.path;
+    this.user = user;
     this.createdAt = moment(new Date()).format('DD/MM/yyyy');
   }
 }

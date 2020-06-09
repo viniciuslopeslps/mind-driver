@@ -3,6 +3,9 @@ import { UserRequest } from '../controllers/request/user-request';
 let jwt = require("jwt-simple");
 const cfg = require('../config/jwt-config');
 const { User } = require('../models/entities/user-entity');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 class UserService {
   userRepository: UserRepository;
@@ -14,7 +17,7 @@ class UserService {
   async authenticate(email: String, password: String) {
     const user = await this.findByEmail(email);
     if (user){
-      if(user.password !== password) {
+      if(bcrypt.compareSync(password, user.password)) {
         //TODO:
         return new Error("USER_NOT_FOUND");
       }

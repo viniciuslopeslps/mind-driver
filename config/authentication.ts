@@ -17,7 +17,7 @@ class Authentication {
       const userService = new UserService()
       const user = await userService.findByEmail(jwt_payload.id);
       if (user) {
-        return done(null, { user: user });
+        return done(null, user);
       } else {
         return done(new Error("USER_NOT_FOUND"), null);
       }

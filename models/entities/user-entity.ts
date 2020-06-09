@@ -1,5 +1,6 @@
-import { UserRequest } from "../../controllers/request/user-request"
 import moment = require('moment');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class User {
   email: String
@@ -7,12 +8,11 @@ class User {
   createdAt: String;
   updatedAt: String;
 
-  constructor({email, password}) {
+  constructor({ email, password }) {
     this.email = email;
-    this.password = password;
+    this.password = bcrypt.hashSync(password, saltRounds);
     this.createdAt = moment(new Date()).format('DD/MM/yyyy');
   }
-  
 }
 
 export { User }
