@@ -63,7 +63,6 @@ class UserRepository {
   }
 
   findByEmail(email: String) {
-
     const params = {
       TableName: UserRepository.TABLE_NAME,
       KeyConditionExpression: "#email = :email",
@@ -84,6 +83,27 @@ class UserRepository {
         } else {
           console.log("Query succeeded. ");
           resolve(data.Items[0]);
+        }
+      });
+    });
+  }
+
+  deleteUser(email: String) {
+    var params = {
+      TableName: UserRepository.TABLE_NAME,
+      Key: {
+        "email": email
+      }
+    };
+    let client = DynamoClient.getClient();
+    return new Promise((resolve, reject) => {
+      client.delete(params, (err, data) => {
+        if (err) {
+          console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+          reject(err);
+        } else {
+          console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+          resolve(data);
         }
       });
     });

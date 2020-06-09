@@ -44,7 +44,7 @@ router.delete('/:title', Authentication.authenticate(), async (req: Request, res
   let service = new ContentService()
   const response = await service.deleteContent(title);
 
-  res.status(200);
+  res.status(200).json(response);
 });
 
 module.exports = router;
