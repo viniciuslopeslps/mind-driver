@@ -2,25 +2,20 @@ const router = require('../../config/express').express.Router();
 
 import { Authentication } from '../../config/authentication';
 import { UserService } from '../../services/user-service';
+import { ApiError } from '../../errors/api-errors';
 
 
 router.post("/token", async function (req, res) {
-  if (req.body.email && req.body.password) {
-    var email = req.body.email;
-    var password = req.body.password;
-
-    const userService = new UserService();
+  const { email, password } = req.body;
+  const userService = new UserService();
+  try {
     const token = await userService.authenticate(email, password);
+    res.json({ token: token });
 
-    if (token) {
-      res.json({ token: token });
-    } else {
-      res.sendStatus(401);
-    }
-  } else {
-    res.sendStatus(401);
+  } catch (ex) {
+    let status = ex.httpCode ? ex.httpCode : 500;
+    res.status(status).json(ex);
   }
-
 });
 
 router.get("/user", Authentication.authenticate(), function (req, res) {

@@ -1,4 +1,4 @@
-import { IsNotEmpty, ValidateIf } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 
 export class UserRequest {
 

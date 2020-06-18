@@ -1,10 +1,11 @@
 import { UserRepository } from '../models/repositories/user-repository'
 import { UserRequest } from '../controllers/request/user-request';
+import { UserNorFound } from '../errors/user-not-found';
+
 let jwt = require("jwt-simple");
 const cfg = require('../config/jwt-config');
 const { User } = require('../models/entities/user-entity');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 
 class UserService {
@@ -17,17 +18,13 @@ class UserService {
   async authenticate(email: String, password: String) {
     const user = await this.findByEmail(email);
     if (user){
-      if(bcrypt.compareSync(password, user.password)) {
-        //TODO:
-        return new Error("USER_NOT_FOUND");
+      if(!bcrypt.compareSync(password, user.password)) {
+        throw new UserNorFound();
       }
-
-    }
-    if (user) {
       const payload = {id: user.email};
       return jwt.encode(payload, cfg.jwtSecret);
     }
-    return null;
+   throw new UserNorFound();
   }
 
   async findByEmail(email: String){
